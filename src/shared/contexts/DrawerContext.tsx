@@ -19,7 +19,6 @@ export const useDrawerContext = () => {
   return React.useContext(DrawerContext);
 };
 
-
 interface IDrawerProviderProps {
   children: React.ReactNode;
 }
