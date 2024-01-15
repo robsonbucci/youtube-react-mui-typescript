@@ -6,8 +6,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
-import { useDrawerContext } from '../../contexts';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
 
 const IMG_PERFIL =
   'https://yt3.ggpht.com/X1OZQTM4R76JXkWy12eBXSKd6-uxBDAqndKAjzgJNFdZznvIj-SXIkl8TdpVIAqxl2Cn3MhpaA=s88-c-k-c0x00ffffff-no-rj';
@@ -20,7 +20,7 @@ interface IListItemLinkProps {
 }
 const ListItemLink: React.FC<IListItemLinkProps> = ({ to, icon, label, onClick }) => {
   const navigate = useNavigate();
-  // esta configuração seleciona o menu de acordo com o path 
+  // esta configuração seleciona o menu de acordo com o path
   const resolvedPath = useResolvedPath(to);
   const match = useMatch({ path: resolvedPath?.pathname, end: false });
 
@@ -46,8 +46,8 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
   const theme = useTheme();
   // para saber se a tela é menor do que sm (600px)
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+  const { toggleTheme } = useAppThemeContext();
 
   return (
     <>
@@ -75,16 +75,25 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
 
           <Box flex={1}>
             <List component="nav">
-              {
-                drawerOptions.map(drawerOption => (
-                  <ListItemLink
-                    key={drawerOption.path}
-                    to={drawerOption.path}
-                    icon={drawerOption.icon}
-                    label={drawerOption.label}
-                    onClick={smDown ? toggleDrawerOpen : undefined}
-                  />
-                ))}
+              {drawerOptions.map(drawerOption => (
+                <ListItemLink
+                  key={drawerOption.path}
+                  to={drawerOption.path}
+                  icon={drawerOption.icon}
+                  label={drawerOption.label}
+                  onClick={smDown ? toggleDrawerOpen : undefined}
+                />
+              ))}
+            </List>
+          </Box>
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>dark_mode</Icon>
+                </ListItemIcon>
+                <ListItemText primary="Alternar tema" />
+              </ListItemButton>
             </List>
           </Box>
         </Box>
