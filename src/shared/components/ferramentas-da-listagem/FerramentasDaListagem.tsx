@@ -28,7 +28,8 @@ export const FerramentasDaListagem: React.FC<IFerramentasDaListagemProps> = ({
       display="flex"
       alignItems="center"
       height={theme.spacing(5)}
-      component={Paper}>
+      component={Paper}
+    >
       {mostrarInputBusca && (
         <TextField
           size="small"
@@ -38,14 +39,19 @@ export const FerramentasDaListagem: React.FC<IFerramentasDaListagemProps> = ({
         />
       )}
 
-      <Box flex={1} display="flex" justifyContent="end">
+      <Box
+        flex={1}
+        display="flex"
+        justifyContent="end"
+      >
         {mostrarBotaoNovo && (
           <Button
             color="primary"
             variant="contained"
             onClick={aoClicarBotaoNovo}
             disableElevation
-            endIcon={<Icon>add</Icon>}>
+            endIcon={<Icon>add</Icon>}
+          >
             {textoBotaoNovo}
           </Button>
         )}
