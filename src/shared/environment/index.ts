@@ -14,5 +14,6 @@ export const Environment = {
   /**
    * URL base de consulta de dados para o json-server
    */
-  URL_BASE: 'http://localhost:3333',
+  // URL_BASE: 'http://localhost:3333',
+  URL_BASE: 'https://my-json-server.typicode.com/robsonbucci/youtube-react-mui-typescript',
 };

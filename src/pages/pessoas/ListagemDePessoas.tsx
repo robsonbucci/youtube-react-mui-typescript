@@ -15,7 +15,7 @@ export const ListagemDePessoas: React.FC = () => {
     PessoasService.getAll(1, busca).then(result => {
       if (result instanceof Error) return alert(result.message);
 
-      console.log('🚀  PessoasService.getAll  result:', result);
+      // const dados = result.data[0];
     });
   }, [busca]);
 

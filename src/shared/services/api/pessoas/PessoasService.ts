@@ -25,16 +25,14 @@ type TPessoaComTotalCount = {
  */
 const getAll = async (page = 1, filter = ''): Promise<TPessoaComTotalCount | Error> => {
   try {
-    const urlRelativa = `/pessoas?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}?nomeCompleto_like=${filter}`;
-    const { data, headers } = await Api.get(`/posts?title_like=${filter}`);
+    const urlRelativa = `/pessoas?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`;
+    const { data, headers } = await Api.get(urlRelativa);
 
-    if (data) {
-      console.log('🚀  getAll  data:', data);
+    if (data)
       return {
         data,
         totalCount: Number(headers['x-total-count'] || Environment.LIMITE_DE_LINHAS),
       };
-    }
 
     return new Error('Erro ao listar os registros.');
   } catch (error) {
