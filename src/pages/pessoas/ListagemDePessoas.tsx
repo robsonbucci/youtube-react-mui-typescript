@@ -2,6 +2,7 @@ import React from 'react';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { FerramentasDaListagem } from '../../shared/components';
 import { useSearchParams } from 'react-router-dom';
+import { PessoasService } from '../../shared/services/api/pessoas/PessoasService';
 
 export const ListagemDePessoas: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -10,7 +11,13 @@ export const ListagemDePessoas: React.FC = () => {
     return searchParams.get('busca') || '';
   }, [searchParams]);
 
-  // React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    PessoasService.getAll(1, busca).then(result => {
+      if (result instanceof Error) return alert(result.message);
+
+      console.log('🚀  PessoasService.getAll  result:', result);
+    });
+  }, [busca]);
 
   return (
     <LayoutBaseDePagina

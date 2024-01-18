@@ -3,8 +3,8 @@ import { Api } from '../axios-config';
 
 interface IListagemPessoa {
   id: number;
-  nomeCompleto: string;
   cidadId: number;
+  nomeCompleto: string;
   email: string;
 }
 
@@ -25,14 +25,16 @@ type TPessoaComTotalCount = {
  */
 const getAll = async (page = 1, filter = ''): Promise<TPessoaComTotalCount | Error> => {
   try {
-    const urlRelativa = `/pessoas?_page=${page}&limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`;
-    const { data, headers } = await Api.get(urlRelativa);
+    const urlRelativa = `/pessoas?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}?nomeCompleto_like=${filter}`;
+    const { data, headers } = await Api.get(`/posts?title_like=${filter}`);
 
-    if (data)
+    if (data) {
+      console.log('🚀  getAll  data:', data);
       return {
         data,
         totalCount: Number(headers['x-total-count'] || Environment.LIMITE_DE_LINHAS),
       };
+    }
 
     return new Error('Erro ao listar os registros.');
   } catch (error) {
