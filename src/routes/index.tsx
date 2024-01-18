@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDrawerContext } from '../shared/contexts';
-import { Dashboard, ListagemDeCidades } from '../pages';
+import { Dashboard, ListagemDePessoas } from '../pages';
 
 export const AppRoutes = () => {
   const { setDrawerOptions } = useDrawerContext();
@@ -14,19 +14,30 @@ export const AppRoutes = () => {
       },
       {
         icon: 'holiday_village',
-        path: '/cidades',
-        label: 'Cidades',
+        path: '/pessoas',
+        label: 'Pessoas',
       },
     ]);
   }, []);
 
   return (
     <Routes>
-      <Route path="/pagina-inicial" element={<Dashboard />} />
-      <Route path="/cidades" element={<ListagemDeCidades />} />
-      {/* <Route path="/cidades/detalhe/:id" element={<ListagemDeCidades />} /> */}
+      <Route
+        path="/pagina-inicial"
+        element={<Dashboard />}
+      />
 
-      <Route path="*" element={<Navigate to="/pagina-inicial" />} />
+      <Route
+        path="/pessoas"
+        element={<ListagemDePessoas />}
+      />
+
+      {/* <Route path="/pessoas/detalhe/:id" element={<ListagemDePessoas />} /> */}
+
+      <Route
+        path="*"
+        element={<Navigate to="/pagina-inicial" />}
+      />
     </Routes>
   );
 };
