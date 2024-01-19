@@ -5,11 +5,13 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { FerramentasDaListagem } from '../../shared/components';
 import { IListagemPessoa, PessoasService } from '../../shared/services/api/pessoas/PessoasService';
 import {
+  LinearProgress,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
 } from '@mui/material';
@@ -52,40 +54,39 @@ export const ListagemDePessoas: React.FC = () => {
         />
       }
     >
-      {isLoading ? (
-        <TableContainer
-          component={Paper}
-          variant="outlined"
-          sx={{ margin: 1, width: 'auto', display: 'flex', justifyContent: 'center' }}
-        >
-          <p>Carregando dados...</p>
-        </TableContainer>
-      ) : (
-        <TableContainer
-          component={Paper}
-          variant="outlined"
-          sx={{ margin: 1, width: 'auto' }}
-        >
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Ações</TableCell>
-                <TableCell>Nome Completo</TableCell>
-                <TableCell>E-mail</TableCell>
+      <TableContainer
+        component={Paper}
+        variant="outlined"
+        sx={{ margin: 1, width: 'auto' }}
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Ações</TableCell>
+              <TableCell>Nome Completo</TableCell>
+              <TableCell>E-mail</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <TableRow key={row.id}>
+                <TableCell>Ação</TableCell>
+                <TableCell>{row.nomeCompleto}</TableCell>
+                <TableCell>{row.email}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell>Ação</TableCell>
-                  <TableCell>{row.nomeCompleto}</TableCell>
-                  <TableCell>{row.email}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+            ))}
+          </TableBody>
+          <TableFooter>
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableFooter>
+        </Table>
+      </TableContainer>
     </LayoutBaseDePagina>
   );
 };
