@@ -15,6 +15,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import { Environment } from '../../shared/environment';
 
 export const ListagemDePessoas: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -67,6 +68,7 @@ export const ListagemDePessoas: React.FC = () => {
               <TableCell>E-mail</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {rows.map(row => (
               <TableRow key={row.id}>
@@ -76,6 +78,9 @@ export const ListagemDePessoas: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+
+          {totalCount === 0 && !isLoading && <caption>{Environment.LISTAGEM_VAZIA}</caption>}
+
           <TableFooter>
             {isLoading && (
               <TableRow>
