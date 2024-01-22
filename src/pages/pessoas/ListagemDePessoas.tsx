@@ -1,11 +1,14 @@
 import React from 'react';
 import { useDebounce } from '../../shared/hooks';
-import { useSearchParams } from 'react-router-dom';
 import { Environment } from '../../shared/environment';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { FerramentasDaListagem } from '../../shared/components';
 import { IListagemPessoa, PessoasService } from '../../shared/services/api/pessoas/PessoasService';
+
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
+  Icon,
+  IconButton,
   LinearProgress,
   Pagination,
   Paper,
@@ -26,6 +29,8 @@ export const ListagemDePessoas: React.FC = () => {
 
   const { debounce } = useDebounce();
 
+  const navegate = useNavigate();
+
   const busca = React.useMemo(() => {
     return searchParams.get('busca') || '';
   }, [searchParams]);
@@ -33,6 +38,15 @@ export const ListagemDePessoas: React.FC = () => {
   const pagina = React.useMemo(() => {
     return Number(searchParams.get('pagina') || '1');
   }, [searchParams]);
+
+  const handleDelete = (id: number) => {
+    if (confirm('Realmmente deseja apagar um registro?')) {
+      PessoasService.deleteById(id).then(result => {
+        if (result instanceof Error) return result.message;
+        return setRows(oldRows => [...oldRows.filter(oldRow => oldRow.id !== id)]);
+      });
+    }
+  };
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -81,7 +95,20 @@ export const ListagemDePessoas: React.FC = () => {
           <TableBody>
             {rows.map(row => (
               <TableRow key={row.id}>
-                <TableCell>Ação</TableCell>
+                <TableCell>
+                  <IconButton
+                    size="small"
+                    onClick={() => handleDelete(row.id)}
+                  >
+                    <Icon>delete</Icon>
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => navegate(`/pessoas/detalhe/${row.id}`)}
+                  >
+                    <Icon>edit</Icon>
+                  </IconButton>
+                </TableCell>
                 <TableCell>{row.nomeCompleto}</TableCell>
                 <TableCell>{row.email}</TableCell>
               </TableRow>

@@ -1,12 +1,6 @@
 {
   "pessoas": [
     {
-      "id": 1,
-      "cidadId": 2,
-      "nomeCompleto": "Jimmie Parker",
-      "email": "jimmieparker@octocore.com"
-    },
-    {
       "id": 2,
       "cidadId": 4,
       "nomeCompleto": "Lynn Brewer",
@@ -17,12 +11,6 @@
       "cidadId": 2,
       "nomeCompleto": "Rebekah Wade",
       "email": "rebekahwade@octocore.com"
-    },
-    {
-      "id": 4,
-      "cidadId": 2,
-      "nomeCompleto": "Sheena Bass",
-      "email": "sheenabass@octocore.com"
     },
     {
       "id": 5,
@@ -377,12 +365,6 @@
       "cidadId": 5,
       "nomeCompleto": "Avis Fry",
       "email": "avisfry@octocore.com"
-    },
-    {
-      "id": 64,
-      "cidadId": 4,
-      "nomeCompleto": "Marguerite Fowler",
-      "email": "margueritefowler@octocore.com"
     },
     {
       "id": 65,
