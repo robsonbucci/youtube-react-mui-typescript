@@ -42,7 +42,7 @@ export const ListagemDePessoas: React.FC = () => {
   const handleDelete = (id: number) => {
     if (confirm('Realmmente deseja apagar um registro?')) {
       PessoasService.deleteById(id).then(result => {
-        if (result instanceof Error) return result.message;
+        if (result instanceof Error) return alert(result.message);
         return setRows(oldRows => [...oldRows.filter(oldRow => oldRow.id !== id)]);
       });
     }
