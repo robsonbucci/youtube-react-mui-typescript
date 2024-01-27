@@ -1,9 +1,11 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { LayoutBaseDePagina } from '../../shared/layouts';
-import { FerramentasDeDetalhe } from '../../shared/components';
 import { PessoasService } from '../../shared/services/api/pessoas/PessoasService';
-import { LinearProgress } from '@mui/material';
+import { FerramentasDeDetalhe } from '../../shared/components';
+import { LayoutBaseDePagina } from '../../shared/layouts';
+import { VTextField } from '../../shared/forms';
+
+import { Form } from '@unform/web';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const DetalheDePessoas: React.FC = () => {
   const { id = 'nova' } = useParams<'id'>();
@@ -57,8 +59,16 @@ export const DetalheDePessoas: React.FC = () => {
         />
       }
     >
-      {isLoading && <LinearProgress variant="indeterminate" />}
-      <p>DetalheDePessoas {id}</p>;
+      <Form
+        onSubmit={dados => console.log(dados)}
+        placeholder="Altere o nome"
+      >
+        <VTextField name="nomeCompleto" />
+        <VTextField name="email" />
+        <VTextField name="cidadeId" />
+
+        <button type="submit">Submit</button>
+      </Form>
     </LayoutBaseDePagina>
   );
 };
