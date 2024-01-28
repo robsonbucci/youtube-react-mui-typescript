@@ -5,7 +5,14 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { VTextField } from '../../shared/forms';
 
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 import { useNavigate, useParams } from 'react-router-dom';
+
+interface IFormData {
+  email: string;
+  cidadeId: number;
+  nomeCompleto: string;
+}
 
 export const DetalheDePessoas: React.FC = () => {
   const { id = 'nova' } = useParams<'id'>();
@@ -30,9 +37,12 @@ export const DetalheDePessoas: React.FC = () => {
     }
   }, [id]);
 
-  const handleSalvar = () => {
-    console.log('Salvar');
+  const formRef = React.useRef<FormHandles>(null);
+
+  const handleSalvar = (dados: IFormData) => {
+    console.log(dados);
   };
+
   const handleDeletar = (id: number) => {
     if (confirm('Realmmente deseja apagar um registro?')) {
       PessoasService.deleteById(id).then(result => {
@@ -51,23 +61,22 @@ export const DetalheDePessoas: React.FC = () => {
           mostrarBotaoSalvarEFechar
           mostrarBotaoNovo={id !== 'nova'}
           mostrarBotaoApagar={id !== 'nova'}
-          aoClicarEmSalvar={handleSalvar}
-          aoClicarEmSalvarEFechar={handleSalvar}
-          aoClicarEmApagar={() => handleDeletar(Number(id))}
-          aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
           aoClicarEmVoltar={() => navigate('/pessoas')}
+          aoClicarEmApagar={() => handleDeletar(Number(id))}
+          aoClicarEmSalvar={() => formRef.current?.submitForm()}
+          aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
+          aoClicarEmSalvarEFechar={() => formRef.current?.submitForm()}
         />
       }
     >
       <Form
-        onSubmit={dados => console.log(dados)}
+        ref={formRef}
+        onSubmit={dados => handleSalvar(dados)}
         placeholder="Altere o nome"
       >
         <VTextField name="nomeCompleto" />
         <VTextField name="email" />
         <VTextField name="cidadeId" />
-
-        <button type="submit">Submit</button>
       </Form>
     </LayoutBaseDePagina>
   );
