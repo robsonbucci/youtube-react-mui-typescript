@@ -2,9 +2,9 @@
   "pessoas": [
     {
       "id": 2,
-      "cidadeId": 4,
-      "nomeCompleto": "Lynn Brewer",
-      "email": "lynnbrewer@octocore.com"
+      "nomeCompleto": "Lynn Brewers",
+      "email": "lynnbrewers@octocore.com",
+      "cidadeId": 4
     },
     {
       "id": 3,
