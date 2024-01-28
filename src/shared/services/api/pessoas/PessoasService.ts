@@ -3,7 +3,7 @@ import { Api } from '../axios-config';
 
 export interface IListagemPessoa {
   id: number;
-  cidadId: number;
+  cidadeId: number;
   nomeCompleto: string;
   email: string;
 }
@@ -11,7 +11,7 @@ export interface IListagemPessoa {
 export interface IDetalhepPessoa {
   id: number;
   nomeCompleto: string;
-  cidadId: number;
+  cidadeId: number;
   email: string;
 }
 
