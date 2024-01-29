@@ -57,7 +57,6 @@ export const ListagemDePessoas: React.FC = () => {
 
         if (result instanceof Error) return alert(result.message);
 
-        console.log('🚀  PessoasService.getAll  result:', result);
         setRows(result.data);
         setTotalCount(result.totalCount);
       });
